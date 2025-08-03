@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Bookings</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Booking Management</h1>
+
+        <!-- Search Form -->
+        <div class="mb-4">
+            <form id="search-form">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="booking-id" placeholder="Booking ID">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="field-id" placeholder="Field ID">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="user-id" placeholder="User ID">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary w-100">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Field ID</th>
+                    <th>User ID</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Price</th>
+                    <th>Confirmed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="booking-list">
+                <tr th:each="booking, iterStat : ${bookings}">
+                    <td th:text="${booking.bookingid}"></td>
+                    <td th:text="${booking.sanid}"></td>
+                    <td th:text="${booking.userid}"></td>
+                    <td th:text="${booking.date}"></td>
+                    <td th:text="${booking.time}"></td>
+                    <td th:text="${booking.price}"></td>
+                    <td>
+                        <span th:text="${booking.confirm != null && booking.confirm ? 'Yes' : 'No'}" class="confirm-status"></span>
+                    </td>
+                    <td>
+                        <button 
+                            class="btn btn-success btn-sm confirm-btn" 
+                            th:disabled="${booking.confirm != null && booking.confirm}" 
+                            th:data-id="${booking.bookingid}" 
+                            th:text="${booking.confirm != null && booking.confirm ? 'Confirmed' : 'Confirm'}">
+                        </button>
+                        <button 
+                            class="btn btn-danger btn-sm delete-btn" 
+                            th:data-id="${booking.bookingid}">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Confirm booking logic
+        $(document).on('click', '.confirm-btn', function () {
+            const bookingId = $(this).data('id');
+            const button = $(this);
+            const statusCell = button.closest('tr').find('.confirm-status'); // Find the status cell
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to confirm this booking?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, confirm it!',
+                cancelButtonText: 'No, cancel!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/admin/confirm-booking',
+                        type: 'POST',
+                        data: { bookingId: bookingId },
+                        success: function () {
+                            Swal.fire('Confirmed!', 'The booking has been confirmed.', 'success');
+                            button.text('Confirmed').prop('disabled', true); // Disable button
+                            statusCell.text('Yes'); // Update status text to 'Yes'
+                        },
+                        error: function () {
+                            Swal.fire('Error!', 'Unable to confirm the booking.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Delete booking logic
+        $(document).on('click', '.delete-btn', function () {
+            const bookingId = $(this).data('id');
+            const row = $(this).closest('tr');
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to delete this booking?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/admin/delete-booking',
+                        type: 'POST',
+                        data: { bookingId: bookingId },
+                        success: function () {
+                            Swal.fire('Deleted!', 'The booking has been deleted.', 'success');
+                            row.remove();
+                        },
+                        error: function () {
+                            Swal.fire('Error!', 'Unable to delete the booking.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Search logic
+        $('#search-form').on('submit', function (e) {
+            e.preventDefault();
+
+            const bookingId = $('#booking-id').val().toLowerCase();
+            const fieldId = $('#field-id').val().toLowerCase();
+            const userId = $('#user-id').val().toLowerCase();
+
+            $('#booking-list tr').each(function () {
+                const row = $(this);
+                const rowBookingId = row.find('td').eq(0).text().toLowerCase();
+                const rowFieldId = row.find('td').eq(1).text().toLowerCase();
+                const rowUserId = row.find('td').eq(2).text().toLowerCase();
+
+                // Filter rows based on search criteria
+                if (
+                    (bookingId === '' || rowBookingId.includes(bookingId)) &&
+                    (fieldId === '' || rowFieldId.includes(fieldId)) &&
+                    (userId === '' || rowUserId.includes(userId))
+                ) {
+                    row.show();
+                } else {
+                    row.hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

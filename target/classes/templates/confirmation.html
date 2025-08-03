@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt Sân</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            padding-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        table td {
+            cursor: pointer;
+        }
+
+        table td.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        table td:hover {
+            background-color: #f0f0f0;
+        }
+
+        .modal-content {
+            padding: 30px;
+        }
+
+        .modal-header {
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .btn-group button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .btn-group button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center title">Xác Nhận Đặt Sân</h1>
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center">
+                        <h2 class="font-weight-bold text-primary">Thông Tin Sân</h2>
+                        <h3 class="info-item">
+                            <strong>Tên Sân:</strong> 
+                            <span class="field-name" th:text="${fieldName}"></span>
+                        </h3>
+                        <h3 class="info-item">
+                            <strong>Ngày Đặt:</strong> 
+                            <span class="booking-date" th:text="${bookingDate}"></span>
+                        </h3>
+                    </div>
+
+                    <div class="col-md-6 text-center">
+                        <img th:src="@{${fieldImage}}" alt="Sân" class="img-fluid rounded shadow">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Buổi Sáng</th>
+                <th>Buổi Trưa</th>
+                <th>Buổi Tối</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-time="06h-07h" class="time-slot" th:classappend="${disabledTimes.contains('06h-07h')} ? 'disabled' : ''">06h-07h</td>
+                <td data-time="13h-14h" class="time-slot" th:classappend="${disabledTimes.contains('13h-14h')} ? 'disabled' : ''">13h-14h</td>
+                <td data-time="18h-19h" class="time-slot" th:classappend="${disabledTimes.contains('18h-19h')} ? 'disabled' : ''">18h-19h</td>
+            </tr>
+            <tr>
+                <td data-time="07h-08h" class="time-slot" th:classappend="${disabledTimes.contains('07h-08h')} ? 'disabled' : ''">07h-08h</td>
+                <td data-time="14h-15h" class="time-slot" th:classappend="${disabledTimes.contains('14h-15h')} ? 'disabled' : ''">14h-15h</td>
+                <td data-time="19h-20h" class="time-slot" th:classappend="${disabledTimes.contains('19h-20h')} ? 'disabled' : ''">19h-20h</td>
+            </tr>
+            <tr>
+                <td data-time="08h-09h" class="time-slot" th:classappend="${disabledTimes.contains('08h-09h')} ? 'disabled' : ''">08h-09h</td>
+                <td data-time="15h-16h" class="time-slot" th:classappend="${disabledTimes.contains('15h-16h')} ? 'disabled' : ''">15h-16h</td>
+                <td data-time="20h-21h" class="time-slot" th:classappend="${disabledTimes.contains('20h-21h')} ? 'disabled' : ''">20h-21h</td>
+            </tr>
+            <tr>
+                <td data-time="09h-10h" class="time-slot" th:classappend="${disabledTimes.contains('09h-10h')} ? 'disabled' : ''">09h-10h</td>
+                <td data-time="16h-17h" class="time-slot" th:classappend="${disabledTimes.contains('16h-17h')} ? 'disabled' : ''">16h-17h</td>
+                <td data-time="21h-22h" class="time-slot" th:classappend="${disabledTimes.contains('21h-22h')} ? 'disabled' : ''">21h-22h</td>
+            </tr>
+            <tr>
+                <td data-time="10h-11h" class="time-slot" th:classappend="${disabledTimes.contains('10h-11h')} ? 'disabled' : ''">10h-11h</td>
+                <td data-time="17h-18h" class="time-slot" th:classappend="${disabledTimes.contains('17h-18h')} ? 'disabled' : ''">17h-18h</td>
+                <td data-time="22h-23h" class="time-slot" th:classappend="${disabledTimes.contains('22h-23h')} ? 'disabled' : ''">22h-23h</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/booknow}" class="btn btn-primary mt-4">Trở về trang trước</a>
+
+    <div id="infoModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác Nhận Đặt Sân</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Người đặt:</strong> <span th:text="${fullname}"></span></p>
+                    <p><strong>Tên Sân:</strong> <span th:text="${fieldName}"></span></p>
+                    <p><strong>Ngày Đặt:</strong> <span th:text="${bookingDate}"></span></p>
+                    <p><strong>Thời gian:</strong> <span id="modalBookingTime"></span></p>
+                    <p><strong>Thanh toán:</strong></p>
+                    <img th:src="@{/images/momo.jpg}" alt="Momo QR" class="img-fluid" style="width: 160px; height: auto;">
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <p><strong>Chú ý điện thoại của bạn Quản lí sẽ gọi để xác nhận</strong></p>
+                     
+				<form th:action="@{/confirm}" method="post" id="confirmForm">
+				    <!-- 
+				        Không cần input ẩn cho fieldName và bookingDate nữa, 
+				        vì Controller sẽ lấy chúng từ session một cách an toàn.
+				        Chúng ta chỉ cần gửi lên thời gian người dùng đã chọn.
+				    -->
+				    <input type="hidden" name="bookingTime" id="hiddenBookingTime">
+				    <button type="submit" id="confirmButton" class="btn btn-success">Xác Nhận</button>
+				</form>
+
+                        <button id="closeModal" class="btn btn-secondary">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".time-slot").click(function () {
+                if ($(this).hasClass("disabled")) {
+                    return; // Không làm gì nếu ô bị vô hiệu hóa
+                }
+
+                bookingTime = $(this).data("time");
+
+                // Cập nhật thông tin trong modal
+                $("#modalBookingTime").text(bookingTime);
+                $("#hiddenBookingTime").val(bookingTime);
+                $("#hiddenFieldName").val($(".field-name").text());
+                $("#hiddenBookingDate").val($(".booking-date").text());
+
+                // Hiển thị modal
+                $("#infoModal").modal("show");
+            });
+
+            // Đóng modal khi nhấn nút đóng
+            $("#closeModal").click(function () {
+                $("#infoModal").modal("hide");
+            });
+        });
+    </script>
+     <footer>
+         <div class="footer">
+            <div class="container">
+               <div class="row">
+                  <div class=" col-md-4">
+                     <h3>Liên hệ</h3>
+                     <ul class="conta">
+                        <li><i class="fa fa-map-marker" aria-hidden="true"></i> Số 1 Đ.Võ Văn Ngân, Linh Chiểu, Thủ Đức, Hồ Chí Minh </li>
+                        <li><i class="fa fa-mobile" aria-hidden="true"></i> +84 908617108</li>
+                        <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="https://mail.google.com/mail/u/0/#inbox?compose=new"> trungnh@hcmute.edu.vn</a></li>
+                     </ul>
+                  </div>
+                  <div class="col-md-4">
+                     <h3>Liên kết</h3>
+                     <ul class="link_menu">
+                       <li class="active"><a class="nav-link" th:href="@{/home}">Trang chủ</a></li>
+                        <li><a class="nav-link" th:href="@{/gallery}">Thư viện ảnh</a></li>
+                        <li><a class="nav-link" th:href="@{/booknow}">Đặt sân</a></li>
+                     </ul>
+                  </div>
+                  <div class="col-md-4">
+                   <h3>Đánh giá</h3>
+                     <form class="bottom_form">
+                        <input class="enter" placeholder="" type="text" name="">
+                        <button class="sub_btn">gửi</button>
+                     </form>
+                     <ul class="social_icon">
+                       <a href="#"><i class="fa fa-arrow-up fa-2x" aria-hidden="true" style="margin-left: 400px;"> </i><br></a>                    
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="copyright">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-10 offset-md-1">
+           
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- end footer -->
+      <!-- Javascript files-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <!-- sidebar -->
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+</body>
+</html>

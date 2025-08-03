@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<!-- Include Bootstrap JS and jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>UTE FootBall</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" href="css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+      <style>
+    .book_btn {
+        background-color: red; /* Màu nền ban đầu */
+        color: white; /* Màu chữ ban đầu */
+        border-color: red; /* Màu viền ban đầu */
+        transition: all 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
+    }
+
+    .book_btn:hover {
+        background-color: white; /* Màu nền khi hover */
+        color: black; /* Màu chữ khi hover */
+        border-color: black; /* Màu viền khi hover */
+    }
+</style>
+   </head>
+   <!-- body -->
+   <body class="main-layout inner_page">
+      <!-- loader  -->
+      <div class="loader_bg">
+         <div class="loader"><img src="images/loading.gif" alt="#"/></div>
+      </div>
+      <!-- end loader -->
+      <!-- header -->
+      </head>
+   <body class="main-layout">
+      <!-- loader  -->
+      <div class="loader_bg">
+         <div class="loader"><img th:src="@{/images/loading.gif}" alt="#"/></div>
+      </div>
+      <!-- end loader -->
+      <!-- header -->
+      <header>
+         <!-- header inner -->
+         <div class="header">
+            <div class="container">
+               <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                     <div class="full">
+                        <div class="center-desk">
+                           <div class="logo">
+                              <a th:href="@{/}"><img th:src="@{/images/Logo_Trường_Đại_Học_Sư_Phạm_Kỹ_Thuật_TP_Hồ_Chí_Minh.png}" alt="#" /></a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                     <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                           <ul class="navbar-nav mr-auto">
+                              <li class="nav-item">
+                                 <a class="nav-link" th:href="@{/}">Trang chủ</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" th:href="@{/gallery}">Thư viện ảnh</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link active" th:href="@{/booknow}">Đặt sân</a>
+                              </li>
+                               <li class="nav-item">
+   								<span th:if="${session.account != null}">
+      								<a class="nav-link" th:href="@{/profile}" th:text="${fullname}"></a>
+      								
+   								</span>
+   								<span th:if="${session.account == null}">
+      								<a class="nav-link" th:href="@{/login}">Đăng nhập/Đăng ký</a>
+   								</span>
+							  </li>
+                           </ul>
+                        </div>
+                     </nav>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </header>
+      <!-- end header inner -->
+      <!-- end header -->
+        <div class="back_re">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="title">
+                      <h2>Book Now!!</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+       <!-- book -->
+      <div  class="book">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="book_box">
+                     <div class="book_img">
+                        <figure><img src="images/anh1.jpg" alt="#"/></figure>
+                     </div>
+                     <div class="book_room">
+                        <h3>Sân 5-1</h3>
+                        <span> 100.000 VNĐ/giờ </span>
+                        <p>Sân bóng 5 người được thiết kế ở một vị trí thuận tiện, nằm ngay cạnh căn tin và bãi xe, giúp dễ dàng di chuyển và sử dụng các dịch vụ tiện ích xung quanh. </p>
+                     
+ 						<p>------------------------------------</p>     
+ 						           <div class="col-md-12">
+                  <button class="book_btn btn btn-primary" data-toggle="modal" data-target="#bookingModal" data-field="Sân 5-1">Đặt Sân</button>
+                                 </div>             
+ 					   </div>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="book_box">
+                     <div class="book_img">
+                        <figure><img src="images/anh6.jpg" alt="#"/></figure>
+                     </div>
+                     <div class="book_room">
+                        <h3>Sân 5-2</h3>
+                        <span>120.000 VNĐ/giờ </span>
+                        <p>Sân 5 người số 2, hiện đại và được trang bị cơ sở vật chất mang lại trải nghiệm chất lượng cho người chơi nhờ vào sự mới mẻ và sạch sẽ của cơ sở vật chất. </p>
+				<p>------------------------------------</p>     
+ 						           <div class="col-md-12">
+                  <button class="book_btn btn btn-primary" data-toggle="modal" data-target="#bookingModal" data-field="Sân 5-2">Đặt Sân</button>
+                     </div>
+                  </div>                   
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="book_box">
+                     <div class="book_img">
+                        <figure><img src="images/anh3.jpg" alt="#"/></figure>
+                     </div>
+                     <div class="book_room">
+                        <h3>Sân 7</h3>
+                        <span>200.000 VNĐ/giờ</span>
+                        <p>Được thiết kế theo tiêu chuẩn , đáp ứng hoàn toàn các nhu cầu các giải bóng thường niên. Là lựa chọn ưu tiên hàng đầu giành cho các giải đấu thường niên. </p>
+                       	<p>------------------------------------</p>     
+ 						           <div class="col-md-12">
+                  <button class="book_btn btn btn-primary" data-toggle="modal" data-target="#bookingModal" data-field="Sân 7">Đặt Sân</button>
+                      </div>
+                    </div>             
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+       <!-- Modal -->
+      <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="bookingModalLabel">Thông tin Đặt Sân</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+               
+                  <form action="/confirm" id="bookingForm" method="get">
+                     <div class="mb-3">
+                        <label for="fieldName" class="form-label">Tên Sân</label>
+                          
+                        <!-- Gọi đến  fieldName thông qua scpipt -->
+                        <input type="text" class="form-control" id="fieldName" name="fieldName" readonly required>
+                        
+                        
+                     </div>
+                     <div class="mb-3">
+                        <label for="bookingDate" class="form-label">Ngày Đặt</label>
+                        <input type="date" class="form-control" id="bookingDate" name="bookingDate" required>
+                     </div>
+                     <button type="submit" class="btn btn-primary">Xác Nhận Đặt Sân</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+  <script>
+// Lắng nghe sự kiện mở modal để điền tên sân vào form
+				$('#bookingModal').on('show.bs.modal', function (event) {
+		    var button = $(event.relatedTarget); // Nút đã nhấn
+		    var fieldName = button.data('field'); // Lấy tên sân từ data-* attribute
+		    var modal = $(this);
+		    modal.find('.modal-body #fieldName').val(fieldName); // Điền tên sân vào input
+		});
+		  </script>
+      <!-- Include Bootstrap JS and jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+      <!-- end book -->
+     <!--  footer -->
+      <footer>
+         <div class="footer">
+            <div class="container">
+               <div class="row">
+                  <div class=" col-md-4">
+                     <h3>Liên hệ</h3>
+                     <ul class="conta">
+                        <li><i class="fa fa-map-marker" aria-hidden="true"></i> Số 1 Đ.Võ Văn Ngân, Linh Chiểu, Thủ Đức, Hồ Chí Minh </li>
+                        <li><i class="fa fa-mobile" aria-hidden="true"></i> +84 908617108</li>
+							<ul class="link_menu">
+								<li style="display: flex; align-items: center;"><i
+									class="fa fa-envelope" aria-hidden="true"></i> <a
+									href="https://mail.google.com/mail/u/0/#inbox?compose=new"
+									style="margin-left: 5px;">trungnh@hcmute.edu.vn</a></li>
+							</ul>
+						</ul>                    
+                  </div>
+                  <div class="col-md-4">
+                     <h3>Liên kết</h3>
+                     <ul class="link_menu">
+                       <li><a class="nav-link" th:href="@{/home}">Trang chủ</a></li>
+                        <li><a class="nav-link" th:href="@{/gallery}">Thư viện ảnh</a></li>
+                        <li class="active"><a class="nav-link" th:href="@{/booknow}">Đặt sân</a></li>
+                     </ul>
+                  </div>
+                  <div class="col-md-4">
+                   <h3>Đánh giá</h3>
+                     <form class="bottom_form">
+                        <input class="enter" placeholder="" type="text" name="">
+                        <button class="sub_btn">gửi</button>
+                     </form>
+                     <ul class="social_icon">
+                        <li><a href="https://www.facebook.com/profile.php?id=100063531161774"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="https://youtube.com/shorts/RUyLJWVB3cQ?si=Uv1XTQnqq-qMscLa"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-arrow-up fa-2x" aria-hidden="true" style="margin-left: 400px;"> </i><br></a></li>                       
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="copyright">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-10 offset-md-1">
+           
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- end footer -->
+      <!-- Javascript files-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <!-- sidebar -->
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+   </body>
+</html>

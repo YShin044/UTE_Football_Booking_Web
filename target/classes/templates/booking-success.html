@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt Sân Thành Công</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f9f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .success-card {
+            max-width: 600px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            background: white;
+            text-align: center;
+        }
+        .success-icon {
+            font-size: 5rem;
+            color: #28a745;
+        }
+        .btn-custom {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="success-card">
+    <div class="success-icon">
+        <i class="fas fa-check-circle"></i> <!-- Cần Font Awesome -->
+    </div>
+    <h1 class="mt-4">Đặt Sân Thành Công!</h1>
+
+    <!-- Hiển thị thông báo thành công được gửi từ Controller -->
+    <div th:if="${successMessage}" class="alert alert-success mt-3" role="alert">
+        <p class="mb-0" th:text="${successMessage}"></p>
+    </div>
+
+    <p class="mt-3">Cảm ơn bạn đã tin tưởng dịch vụ của chúng tôi. Quản lý sân sẽ sớm liên hệ với bạn để xác nhận.</p>
+
+    <div>
+        <a th:href="@{/profile}" class="btn btn-info btn-custom">Xem Lịch Sử Đặt Sân</a>
+        <a th:href="@{/booknow}" class="btn btn-primary btn-custom">Tiếp Tục Đặt Sân</a>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Link để hiện icon -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

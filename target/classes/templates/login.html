@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Đăng nhập</title>
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<div class="row justify-content-center mt-5">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header text-center">
+						<h4>Đăng nhập</h4>
+					</div>
+					<div class="card-body">
+						<!-- Hiển thị thông báo đăng ký thành công -->
+						<div th:if="${malert}" class="alert alert-success" role="alert">
+							<p th:text="${malert}"></p>
+						</div>
+
+						<!-- Hiển thị thông báo lỗi đăng nhập -->
+						<div th:if="${alert}" class="alert alert-danger" role="alert">
+							<p th:text="${alert}"></p>
+						</div>
+
+						<form th:action="@{/login}" method="post" autocomplete="off" id="loginForm">
+							<div class="form-group">
+								<label for="username">Tên đăng nhập</label>
+								<input type="text" class="form-control" id="username" name="username" required autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label for="password">Mật khẩu</label>
+								<input type="password" class="form-control" id="password" name="password" required autocomplete="off">
+							</div>
+							<div class="form-group form-check">
+								<input type="checkbox" class="form-check-input" id="rememberMe" name="remember">
+								<label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
+							</div>
+							<button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+						</form>
+
+						<div class="text-center mt-3">
+							<a class="nav-link" th:href="@{/forgotpassword}">Quên mật khẩu?</a>
+						</div>
+					</div>
+					<div class="card-footer text-center">
+						<p>Chưa có tài khoản? <a th:href="@{/register}">Đăng ký ngay</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- SHA-256 via CryptoJS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+	<script>
+		document.getElementById("loginForm").addEventListener("submit", function(e) {
+			const passwordField = document.getElementById("password");
+			const hashedPassword = CryptoJS.SHA256(passwordField.value).toString();
+			passwordField.value = hashedPassword;
+		});
+	</script>
+</body>
+</html>
